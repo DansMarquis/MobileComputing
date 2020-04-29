@@ -18,6 +18,9 @@ import android.widget.Toast;
 
 public class Dialer extends AppCompatActivity {
     EditText editNumber;
+    String dial1 = "900000001";
+    String dial2 = "900000002";
+    String dial3 = "900000003";
     private static final int REQUEST_CALL = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,35 +28,45 @@ public class Dialer extends AppCompatActivity {
         setContentView(R.layout.activity_dialer);
 
         editNumber = (EditText) findViewById(R.id.editNumber);
-        final Button buttonOne = (Button)findViewById(R.id.btnOne);
+        final Button buttonOne = (Button)findViewById(R.id.btndial1);
         buttonOne.setOnLongClickListener(
             new Button.OnLongClickListener() {
                 public boolean onLongClick (View V){
-                    longclick(buttonOne);
+                    String num = dial1;
+                    openEdit(buttonOne, num);
                     return true;
                 }
             }
         );
-        final Button buttonTwo = (Button)findViewById(R.id.btnTwo);
+        final Button buttonTwo = (Button)findViewById(R.id.btndial2);
         buttonTwo.setOnLongClickListener(
                 new Button.OnLongClickListener() {
                     public boolean onLongClick (View V){
-                        longclick(buttonTwo);
+                        String num = dial2;
+                        openEdit(buttonTwo, num);
                         return true;
                     }
                 }
         );
-        final Button buttonThree = (Button)findViewById(R.id.btnThree);
+        final Button buttonThree = (Button)findViewById(R.id.btndial3);
         buttonThree.setOnLongClickListener(
                 new Button.OnLongClickListener() {
                     public boolean onLongClick (View V){
-                        longclick(buttonThree);
+                        String num = dial3;
+                        openEdit(buttonThree, num);
                         return true;
                     }
                 }
         );
     }
-
+    public void openEdit(Button btn, String num){
+        Intent intent = new Intent(this, Edit.class);
+        String name = btn.getText().toString();
+        String number = num;
+        intent.putExtra("name", name);
+        intent.putExtra("number", num);
+        startActivity(intent);
+    }
     public void buttonClickEvent(View v) {
         String phoneNumber = editNumber.getText().toString();
         try {
@@ -107,6 +120,18 @@ public class Dialer extends AppCompatActivity {
                     phoneNumber += "9";
                     editNumber.setText(phoneNumber);
                     break;
+                case R.id.btndial1:
+                    phoneNumber = dial1;
+                    editNumber.setText(phoneNumber);
+                    break;
+                case R.id.btndial2:
+                    phoneNumber = dial2;
+                    editNumber.setText(phoneNumber);
+                    break;
+                case R.id.btndial3:
+                    phoneNumber = dial3;
+                    editNumber.setText(phoneNumber);
+                    break;
                 case R.id.delete:
                     if (phoneNumber != null && phoneNumber.length() > 0) {
                         phoneNumber = phoneNumber.substring(0, phoneNumber.length() - 1);
@@ -123,11 +148,7 @@ public class Dialer extends AppCompatActivity {
         }
     }
 
-    public void longclick(Button btn)
-    {
-        Toast.makeText(this, "You pressed "+ btn.getText()+"!!", Toast.LENGTH_LONG).show();
-        editNumber.setText("96000000"+btn.getText());
-    }
+
     private void makeCall(){
         String phoneNumber = editNumber.getText().toString();
         if (phoneNumber.trim().length() > 0) {
