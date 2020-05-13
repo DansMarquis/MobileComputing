@@ -49,23 +49,21 @@ public class MainActivity extends AppCompatActivity implements WeatherMenuFragme
         setContentView(R.layout.activity_main);
 
         if (savedInstanceState == null) {
-            // Instance of first fragment
             WeatherMenuFragment firstFragment = new WeatherMenuFragment();
 
-            // Add Fragment to FrameLayout (flContainer), using FragmentManager
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();// begin  FragmentTransaction
-            ft.add(R.id.flContainer, firstFragment);                                // add    Fragment
-            ft.commit();                                                            // commit FragmentTransaction
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();// begin  Fragment Transaction
+            ft.add(R.id.flContainer, firstFragment);                                // add Fragment
+            ft.commit();                                                            // commit Fragment Transaction
         }
 
         if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
             WeatherDetailFragment secondFragment = new WeatherDetailFragment();
             Bundle args = new Bundle();
             args.putInt("position", 0);
-            secondFragment.setArguments(args);          // (1) Communicate with Fragment using Bundle
-            FragmentTransaction ft2 = getSupportFragmentManager().beginTransaction();// begin  FragmentTransaction
-            ft2.add(R.id.flContainer2, secondFragment);                               // add    Fragment
-            ft2.commit();                                                            // commit FragmentTransaction
+            secondFragment.setArguments(args);          
+            FragmentTransaction ft2 = getSupportFragmentManager().beginTransaction();// begin Fragment Transaction
+            ft2.add(R.id.flContainer2, secondFragment);                               // add Fragment
+            ft2.commit();                                                            // commit Fragment Transaction
         }
     }
 
@@ -79,19 +77,19 @@ public class MainActivity extends AppCompatActivity implements WeatherMenuFragme
         args.putInt("position", position);
 
         args.putString("city", MenuList.cities[position]);
-        secondFragment.setArguments(args);          // (1) Communicate with Fragment using Bundle
+        secondFragment.setArguments(args);          
 
 
         if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.flContainer2, secondFragment) // replace flContainer
+                    .replace(R.id.flContainer2, secondFragment) 
                     //.addToBackStack(null)
                     .commit();
         }else{
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.flContainer, secondFragment) // replace flContainer
+                    .replace(R.id.flContainer, secondFragment)
                     .addToBackStack(null)
                     .commit();
         }
@@ -99,27 +97,19 @@ public class MainActivity extends AppCompatActivity implements WeatherMenuFragme
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
-
-
-
 
 }

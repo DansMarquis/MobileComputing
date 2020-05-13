@@ -28,7 +28,7 @@ public class WeatherMenuFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup parent, @Nullable Bundle savedInstanceState) {
-        // Inflate the xml file for the fragment
+      
         return inflater.inflate(R.layout.weather_menu, parent, false);
     }
 
@@ -42,8 +42,7 @@ public class WeatherMenuFragment extends Fragment {
         lvItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // go to activity to load pizza details fragment
-                listener.onCitySelected(position); // (3) Communicate with Activity using Listener
+                listener.onCitySelected(position); 
             }
         });
     }
@@ -51,16 +50,11 @@ public class WeatherMenuFragment extends Fragment {
     private OnItemSelectedListener listener;
 
 
-
-    //--OnItemSelectedListener listener;
-    // This event fires 1st, before creation of fragment or any views
-    // The onAttach method is called when the Fragment instance is associated with an Activity.
-    // This does not mean the Activity is fully initialized.
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if(context instanceof OnItemSelectedListener){      // context instanceof YourActivity
-            this.listener = (OnItemSelectedListener) context; // = (YourActivity) context
+        if(context instanceof OnItemSelectedListener){      
+            this.listener = (OnItemSelectedListener) context; 
         } else {
             throw new ClassCastException(context.toString()
                     + " must implement WeatherMenuFragment.OnItemSelectedListener");

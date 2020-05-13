@@ -43,7 +43,6 @@ public class WeatherDetailFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         if(savedInstanceState == null){
-            // Get back arguments
             if(getArguments() != null) {
                 position = getArguments().getInt("position", 0);
                 city = getArguments().getString("city");
@@ -60,23 +59,16 @@ public class WeatherDetailFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        // Set values for view here
         tvTitle = (TextView) view.findViewById(R.id.tvTitle);
         tvDetails = (TextView) view.findViewById(R.id.tvDetails);
         firstdate = (TextView) view.findViewById(R.id.tvDetails2);
 
-        // update view
         tvTitle.setText(MenuList.cities[position]);
         callWeatherForecastForACityStep1(city);
-
-
-        //tvDetails.setText(city);
     }
 
-    // Activity is calling this to update view on Fragment
     public void updateView(int position){
         tvTitle.setText(MenuList.cities[position]);
-        //tvDetails.setText(city);
     }
 
     public void callWeatherForecastForACityStep1(String city) {
