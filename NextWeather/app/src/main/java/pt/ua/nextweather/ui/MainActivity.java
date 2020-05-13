@@ -50,7 +50,6 @@ public class MainActivity extends AppCompatActivity implements WeatherMenuFragme
 
         if (savedInstanceState == null) {
             WeatherMenuFragment firstFragment = new WeatherMenuFragment();
-
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();// begin  Fragment Transaction
             ft.add(R.id.flContainer, firstFragment);                                // add Fragment
             ft.commit();                                                            // commit Fragment Transaction
@@ -60,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements WeatherMenuFragme
             WeatherDetailFragment secondFragment = new WeatherDetailFragment();
             Bundle args = new Bundle();
             args.putInt("position", 0);
+            args.putString("city", MenuList.cities[0]);
             secondFragment.setArguments(args);          
             FragmentTransaction ft2 = getSupportFragmentManager().beginTransaction();// begin Fragment Transaction
             ft2.add(R.id.flContainer2, secondFragment);                               // add Fragment
@@ -83,8 +83,7 @@ public class MainActivity extends AppCompatActivity implements WeatherMenuFragme
         if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.flContainer2, secondFragment) 
-                    //.addToBackStack(null)
+                    .replace(R.id.flContainer2, secondFragment)
                     .commit();
         }else{
             getSupportFragmentManager()
